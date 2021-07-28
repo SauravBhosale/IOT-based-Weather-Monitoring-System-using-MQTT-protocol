@@ -50,7 +50,7 @@ IFTTT derives its name from the programming conditional statement “if this, th
 ![connection](https://user-images.githubusercontent.com/62541787/127278142-8f7c7bc9-6601-497c-b2bf-dda82258e24e.PNG)
 ![practical_connection](https://user-images.githubusercontent.com/62541787/127278315-8d677ba6-ce72-401a-9954-97a9f5e04da5.jpg)
 
-## Flow ofr Project
+## Flow of Project
 In this part we will be discussing the complete structure and flow of our project. We have divided our project into 2 main parts, in the first part we will be interfacing the DHT11 temperature and humidity sensor with NodeMCU ESP8266. After reading the value from the sensor once it reads the value, we will check if our nodemcu is connected to our mqtt server and once it is connected, we will publish data on our mqtt server. In the second part we will be building our flow of nodes on the node-red terminal so that node-red will receive the data from our NodeMCU. We have also made a simple, decent and user friendly interface for visualizing data on a node-red dashboard. Next service which we are using is IFTTT which is actually taking output from node red and if the value of temperature exceeds a certain threshold value then an alert email will be sent to the user. One more and the most important thing is that we have used AWS to setup our server and by using mosquitto library in ubuntu we have set up a MQTT broker, which is the middle man between our sensor and other devices. The flowchart is shown below:
 ![FLow](https://user-images.githubusercontent.com/62541787/127284923-b43cfc68-9d22-4e20-9e9a-abf530febad1.png)
 
