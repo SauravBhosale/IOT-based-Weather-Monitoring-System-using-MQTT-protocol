@@ -77,6 +77,7 @@ We created an applet on IFTTT where we receive a web request using Webhooks serv
 The web request is received whenever msg.payload i.e. the temperature1 is greater than 35. This logic is executed using a simple javascript program written in the function node. This program will only send values greater than 35 in the IFTTT out node. In this node we specify a key and write the event name. Whenever this event is triggered the webhooks will receive a webrequest and subsequently a mail in the specified email address.
 The javascript code in the function node is shown below:
 ![IFTTTjs](https://user-images.githubusercontent.com/62541787/127286267-190f6a02-c07e-4796-bbc6-88e28cf0bc42.PNG)
+
 The mail received is as follows:
 ![IFTTTmail](https://user-images.githubusercontent.com/62541787/127286311-db3082aa-ca1e-4c75-bcb9-da312517218a.PNG)
 
