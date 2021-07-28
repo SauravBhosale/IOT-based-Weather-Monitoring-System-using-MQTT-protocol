@@ -50,6 +50,46 @@ IFTTT derives its name from the programming conditional statement “if this, th
 ![connection](https://user-images.githubusercontent.com/62541787/127278142-8f7c7bc9-6601-497c-b2bf-dda82258e24e.PNG)
 ![practical_connection](https://user-images.githubusercontent.com/62541787/127278315-8d677ba6-ce72-401a-9954-97a9f5e04da5.jpg)
 
+## Flow ofr Project
+In this part we will be discussing the complete structure and flow of our project. We have divided our project into 2 main parts, in the first part we will be interfacing the DHT11 temperature and humidity sensor with NodeMCU ESP8266. After reading the value from the sensor once it reads the value, we will check if our nodemcu is connected to our mqtt server and once it is connected, we will publish data on our mqtt server. In the second part we will be building our flow of nodes on the node-red terminal so that node-red will receive the data from our NodeMCU. We have also made a simple, decent and user friendly interface for visualizing data on a node-red dashboard. Next service which we are using is IFTTT which is actually taking output from node red and if the value of temperature exceeds a certain threshold value then an alert email will be sent to the user. One more and the most important thing is that we have used AWS to setup our server and by using mosquitto library in ubuntu we have set up a MQTT broker, which is the middle man between our sensor and other devices. The flowchart is shown below:
+![FLow](https://user-images.githubusercontent.com/62541787/127284923-b43cfc68-9d22-4e20-9e9a-abf530febad1.png)
+
+## Implementation
+### Setting up AWS
+We have to create a Ubuntu instance using Amazon Web Services. This is basically a virtual pc. The terminal of this virtual server is opened using putty software. In this terminal we have to install node-red and the mosquitto broker.This server acts as a virtual Raspberry Pi. The AWS instance installed is shown below:
+![AWSinstance](https://user-images.githubusercontent.com/62541787/127285069-c6f9faab-34b3-4433-82ba-ce88f7b89111.PNG)
+
+### Node-Red Flow Editing
+![Implementation](https://user-images.githubusercontent.com/62541787/127285247-3d5976dd-452c-4c93-a889-cd43704dc2db.PNG)
+In the above diagram we can see that there are various nodes used. The first node which is used is the “MQTT in” node which is named Temperature1. This node subscribes to the topic that we publish to from the Arduino IDE and sends the data to the dashboard. In the MQTT node we have to specify the ip address and the topic that we want to subscribe to. Similarly we give different topic names for humidity which is shown below in the fig.
+![CombineMQTTin_setting](https://user-images.githubusercontent.com/62541787/127285400-bca91c45-f3f9-4d98-ad1a-a00d5b62beb3.PNG)
+The other node which we used is a dashboard node in which we decide to give name and type of dashboard i.e Line chart and Gauge for Temperature and Humidity respectively. Here we can customize the  colour of the chart or gauge. The setting of this node is shown in the figure below.
+![CombinedDashboard](https://user-images.githubusercontent.com/62541787/127285477-5a850086-4055-4901-883a-32e969af6ddc.PNG)
+The Dashboard can be seen on the UI page as shown below:
+![UI](https://user-images.githubusercontent.com/62541787/127285586-7ea4a70a-24e3-4142-8888-7dea5bb88322.PNG)
+he Data coming from the DHT11 sensor can be visualized on the UI page which is opened by writing ‘your_ipaddress:1880/ui’. The debug node which is named as sensor1 is used to see the data on the node-red terminal. This data can be seen on the debug window in node-red. Similar process is followed for the data received from other locations.
+The data being received can be seen on mqtt box as follows:
+![mqttbox](https://user-images.githubusercontent.com/62541787/127285942-f20865f2-f865-4290-a4f2-541d6efa7e74.png)
+
+### Alert on email using IFTTT
+We created an applet on IFTTT where we receive a web request using Webhooks service which is given by IFTTT and send an email whenever the web request is received.
+![IFTTTapplet](https://user-images.githubusercontent.com/62541787/127286209-99f542db-71ba-4c02-b1b0-f4925aa89619.PNG)
+The web request is received whenever msg.payload i.e. the temperature1 is greater than 35. This logic is executed using a simple javascript program written in the function node. This program will only send values greater than 35 in the IFTTT out node. In this node we specify a key and write the event name. Whenever this event is triggered the webhooks will receive a webrequest and subsequently a mail in the specified email address.
+The javascript code in the function node is shown below:
+![IFTTTjs](https://user-images.githubusercontent.com/62541787/127286267-190f6a02-c07e-4796-bbc6-88e28cf0bc42.PNG)
+The mail received is as follows:
+![IFTTTmail](https://user-images.githubusercontent.com/62541787/127286311-db3082aa-ca1e-4c75-bcb9-da312517218a.PNG)
+
+## Conclusion
+In this way we have implemented a Smart Weather Monitoring System using MQTT protocol, IFTTT and node-red. We learned about IoT, how IoT systems work and different protocols used in it. We also implemented one of the IoT protocols which is MQTT Protocol. This project is not only limited to this system but also it can be used in process applications like a level control loop or a temperature control loop. Such type of weather monitoring can also be used in predictive analysis of weather where we can log the data in a csv file and use it for further data analytics.
+
+
+
+
+
+
+
+
 
 
 
